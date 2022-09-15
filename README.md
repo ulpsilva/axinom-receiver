@@ -15,8 +15,6 @@ This is Axinom Receive
 ### Docker
 1. create config files using template files
   1. `cp .env.development.local.template .env.development.local`
-  2. `cp .env.production.local.template .env.production.local`
-  3. `cp .env.test.local.template .env.test.local`
 2. run `docker-compose up`
 
 ## Api Documentation
