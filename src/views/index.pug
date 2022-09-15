@@ -1,0 +1,17 @@
+extends ../../node_modules/jade-bootstrap/layouts/starter
+block body
+  .container
+    h1 Axinom Receiver
+    h4 Uploaded file objects
+
+    table.table
+      thead
+        tr
+          th(scope='col') #
+          th(scope='col') Object
+      tbody
+        each val in data
+          tr
+            th(scope='row')= val._id
+            td= JSON.stringify(val.files)
+

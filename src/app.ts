@@ -14,6 +14,7 @@ import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
 import oauth from '@utils/oauth';
 import { logger, stream } from '@utils/logger';
+import path from 'path';
 
 interface expressWithOAuth extends express.Application {
   oauth?: any;
@@ -58,6 +59,10 @@ class App {
   }
 
   private initializeMiddlewares() {
+    // view engine setup
+    this.app.set('views', path.join(__dirname, 'views'));
+    this.app.set('view engine', 'pug');
+
     this.app.use(morgan(LOG_FORMAT, { stream }));
     this.app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
     this.app.use(hpp());
@@ -66,6 +71,7 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
+    this.app.use(express.static(path.join(__dirname, 'public')));
 
     this.app.oauth = oauth;
     this.app.use('/oauth/token', this.app.oauth.token());
