@@ -1,0 +1,76 @@
+tags:
+- name: OAuth2
+  description: OAuth2 API
+- name: Store
+  description: Store API
+
+paths:
+  /oauth/token:
+    post:
+      tags:
+        - OAuth2
+      description: Get Access token
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: grant_type
+          in: formData
+          description: 'Eg: client_credentials'
+          required: true
+          type: string
+        - name: client_id
+          in: formData
+          description: Client Id
+          required: true
+          type: string
+        - name: client_secret
+          in: formData
+          description: Client Secret
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Access token
+  /api/v1/store:
+    post:
+      tags:
+        - Store
+      summery: Store file data
+      parameters:
+        - name: authorization
+          in: header
+          description: Bearer token
+          required: true
+          type: string
+        - in: body
+          name: body
+          schema:
+            type: object
+            properties:
+              files:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    dir:
+                      type: boolean
+                    date:
+                      type: string
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+
+schemes:
+ - https
+ - http
